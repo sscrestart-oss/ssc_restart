@@ -2,150 +2,127 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>SSC Restart – Free SSC Study Material</title>
-<meta name="description" content="Daily SSC CGL, CHSL, CPO and MTS notes, PDFs, videos and practice sets.">
-<meta name="theme-color" content="#0d0b0a">
+<meta name="description" content="Notes, PYQs and practice for SSC CGL, CHSL, CPO and MTS. Reasoning, GS, Maths, English and Computer.">
+<meta name="theme-color" content="#09090a">
 <link rel="icon" href="logo.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;1,800;1,900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#0d0b0a;--panel:#171311;--panel2:#1f1a17;--line:#33291f;--red:#e0201b;--red2:#ff3b30;--paper:#f2dfb8;--amber:#f7b85c;--text:#f5efe6;--mute:#a89d90}
-*{box-sizing:border-box;margin:0}
+:root{--bg:#09090a;--card:#151516;--card2:#1e1e20;--line:rgba(255,255,255,.12);--cream:#f4f1ea;--cream2:#d6d2c8;--red:#e3211f;--red2:#a40f14;--mut:#a6a299}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html{scroll-behavior:smooth}
-body{font:400 16px/1.5 Barlow,system-ui,sans-serif;color:var(--text);background:var(--ink);min-height:100vh;
-background-image:radial-gradient(520px 360px at 92% -40px,rgba(247,184,92,.22),transparent 70%),radial-gradient(600px 400px at -10% 30%,rgba(224,32,27,.10),transparent 70%)}
+body{font-family:'Inter','Noto Sans Devanagari',system-ui,sans-serif;background:var(--bg);color:var(--cream);line-height:1.6;min-height:100vh}
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(900px 480px at 82% -6%,rgba(227,33,31,.18),transparent 62%),radial-gradient(700px 520px at -10% 30%,rgba(227,33,31,.10),transparent 60%),radial-gradient(1200px 700px at 50% 120%,rgba(255,255,255,.06),transparent 60%),var(--bg)}
 a{color:inherit;text-decoration:none}
-:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
-.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
-.top{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
-.brand{display:flex;align-items:center;gap:12px}
-.brand img{width:46px;height:46px;border-radius:50%;border:2px solid var(--red);object-fit:cover;background:#000}
-.brand b{font:italic 900 26px/1 'Barlow Condensed';letter-spacing:.5px}
-.brand b span{color:var(--red2)}
-.hero{padding:34px 0 26px;display:grid;gap:22px}
-h1{font:italic 900 clamp(54px,12vw,112px)/.9 'Barlow Condensed';letter-spacing:-.5px;text-transform:uppercase}
-h1 em{display:block;color:var(--red2);font-style:italic}
-.hero p{max-width:46ch;color:var(--mute);font-size:18px}
-.btns{display:flex;flex-wrap:wrap;gap:12px}
-.btn{display:inline-flex;align-items:center;gap:10px;padding:13px 22px;border-radius:999px;font-weight:600;transition:transform .15s,box-shadow .15s}
+:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
+.top{position:sticky;top:0;z-index:50;background:rgba(10,8,7,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0)}
+.top-in{max-width:1080px;margin:auto;display:flex;align-items:center;gap:10px;padding:10px 18px}
+.brand{display:flex;align-items:center;gap:11px}
+.brand img{width:42px;height:42px;border-radius:50%;border:2px solid var(--red);box-shadow:0 0 18px rgba(227,33,31,.45);object-fit:cover}
+.brand b{font:800 1.18rem/1 'Playfair Display',serif;letter-spacing:.06em}
+.brand b i{font-style:normal;color:var(--red)}
+.brand small{display:block;font-size:.62rem;letter-spacing:.2em;color:var(--mut);text-transform:uppercase;margin-top:3px}
+.top .sp{margin-left:auto}
+.pill{font:600 .78rem 'Inter';border-radius:999px;padding:8px 14px;white-space:nowrap;transition:transform .15s}
+.pill:hover{transform:translateY(-2px)}
+.pill.l{color:#111;background:linear-gradient(135deg,#fff,#d9d5cb)}
+.pill.d{border:1px solid var(--line);background:var(--card);color:var(--cream2)}
+.hero{max-width:1080px;margin:auto;padding:48px 18px 20px;display:grid;grid-template-columns:auto 1fr;gap:38px;align-items:center}
+.lg{position:relative;width:190px;height:190px}
+.lg::before{content:"";position:absolute;inset:-22px;border-radius:50%;background:radial-gradient(circle,rgba(227,33,31,.38),transparent 68%);animation:glow 4s ease-in-out infinite}
+.lg img{position:relative;width:100%;height:100%;border-radius:50%;border:3px solid var(--red);box-shadow:0 0 0 6px rgba(227,33,31,.14),0 20px 50px rgba(0,0,0,.6);object-fit:cover}
+@keyframes glow{50%{opacity:.55;transform:scale(1.06)}}
+.eyebrow{display:inline-block;font:700 .68rem 'Inter';letter-spacing:.24em;text-transform:uppercase;border:1px solid rgba(227,33,31,.35);padding:5px 12px;border-radius:999px;background:rgba(227,33,31,.07)}
+h1{font:900 clamp(2.4rem,7vw,4.4rem)/1.04 'Playfair Display',serif;margin:14px 0 10px;letter-spacing:-.01em}
+h1 em{font-style:normal;color:var(--red);text-shadow:0 0 30px rgba(227,33,31,.4)}
+.hero p{color:var(--mut);max-width:560px;font-size:1.04rem}
+.btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
+.btn{display:inline-flex;align-items:center;gap:9px;font:600 .92rem 'Inter';padding:13px 22px;border-radius:999px;transition:transform .15s,box-shadow .15s}
 .btn:hover{transform:translateY(-2px)}
-.btn svg{width:20px;height:20px;fill:currentColor}
-.btn.tg{background:var(--red);box-shadow:0 8px 28px -8px rgba(224,32,27,.8)}
-.btn.yt{border:1.5px solid var(--paper);color:var(--paper)}
-.btn.yt:hover{background:var(--paper);color:var(--ink)}
-.exams{display:flex;gap:8px;flex-wrap:wrap}
-.exams span{padding:4px 12px;border:1px dashed var(--line);border-radius:6px;color:var(--paper);font-weight:600;font-size:14px}
-.exams span::after{content:" ✓";color:var(--red2)}
-h2{font:italic 800 30px/1 'Barlow Condensed';text-transform:uppercase;margin:38px 0 16px;display:flex;align-items:center;gap:12px}
-h2::after{content:"";height:2px;flex:1;background:linear-gradient(90deg,var(--red),transparent)}
-.subs{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
-.sub{position:relative;text-align:left;cursor:pointer;color:var(--ink);background:var(--paper);border:0;border-radius:6px;padding:18px 16px 16px;font:inherit;
-box-shadow:0 14px 24px -14px #000;transition:transform .2s,box-shadow .2s}
-.sub:nth-child(odd){transform:rotate(-1.2deg)}.sub:nth-child(even){transform:rotate(1deg)}
-.sub:hover{transform:rotate(0) translateY(-4px)}
-.sub::before{content:"";position:absolute;top:-7px;left:50%;width:46px;height:14px;margin-left:-23px;background:rgba(224,32,27,.85);border-radius:2px}
-.sub svg{width:34px;height:34px;stroke:var(--red);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.sub strong{display:block;font:italic 900 24px/1.1 'Barlow Condensed';text-transform:uppercase;margin-top:10px}
-.sub small{color:#6b5b45;font-weight:600}
-.sub[aria-pressed=true]{background:var(--red);color:#fff;transform:rotate(0)}
-.sub[aria-pressed=true] svg{stroke:#fff}.sub[aria-pressed=true] small{color:#ffd9d6}
-.tools{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px}
-.tools input{flex:1;min-width:200px;padding:13px 18px;border-radius:999px;border:1.5px solid var(--line);background:var(--panel);color:var(--text);font:inherit}
-.tools input:focus{border-color:var(--amber);outline:0}
-.chips{display:flex;gap:8px;flex-wrap:wrap}
-.chip{padding:9px 16px;border-radius:999px;border:1.5px solid var(--line);background:none;color:var(--mute);font:600 14px Barlow;cursor:pointer}
-.chip[aria-pressed=true]{background:var(--paper);color:var(--ink);border-color:var(--paper)}
-.list{display:grid;gap:10px}
-.item{display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--red);border-radius:10px;transition:background .15s,border-color .15s}
-.item:hover{background:var(--panel2);border-left-color:var(--amber)}
-.tag{flex:none;min-width:62px;text-align:center;padding:6px 8px;border-radius:6px;background:var(--panel2);color:var(--amber);font:italic 800 15px 'Barlow Condensed';text-transform:uppercase}
-.item h3{font:600 17px/1.3 Barlow}
-.item p{font-size:13px;color:var(--mute)}
-.item .go{margin-left:auto;flex:none;color:var(--red2);font-weight:600}
-.new{background:var(--red);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;margin-left:8px;vertical-align:2px}
-.empty{padding:34px;text-align:center;color:var(--mute);border:1.5px dashed var(--line);border-radius:10px}
-.plan{margin:44px 0 0;padding:22px 24px;background:var(--paper);color:var(--ink);border-radius:6px;transform:rotate(-.6deg);display:flex;flex-wrap:wrap;gap:8px 26px;align-items:center}
-.plan b{font:italic 900 28px 'Barlow Condensed';text-transform:uppercase;margin-right:auto}
-.plan span{font-weight:600}.plan span:last-child::after{content:" ✓";color:var(--red)}
-footer{padding:40px 0 50px;color:var(--mute);font-size:14px;text-align:center}
-@media(prefers-reduced-motion:reduce){*{transition:none!important}.sub{transform:none!important}}
+.btn svg{width:19px;height:19px;fill:currentColor}
+.btn.tg{background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;box-shadow:0 8px 26px rgba(227,33,31,.4)}
+.btn.yt{border:1.5px solid rgba(244,241,234,.6);color:var(--cream)}
+.btn.yt:hover{background:var(--cream);color:#111}
+.steps{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px;font:600 .72rem 'Inter';letter-spacing:.12em;text-transform:uppercase;color:var(--mut)}
+.steps span::after{content:"›";margin-left:8px;color:var(--red)}.steps span:last-child::after{content:"✓";color:var(--cream)}
+main{max-width:1080px;margin:auto;padding:10px 18px 70px}
+.sh{margin:34px 0 18px}
+.sh h2{font:800 1.8rem 'Playfair Display',serif}
+.sh h2::after{content:"";display:block;width:54px;height:3px;background:linear-gradient(90deg,var(--red),var(--cream));border-radius:3px;margin-top:8px}
+.sh p{color:var(--mut);font-size:.92rem;margin-top:8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+.card{position:relative;display:block;background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:18px;padding:22px 20px 20px;cursor:pointer;transition:.25s;overflow:hidden;text-align:left;color:inherit;font:inherit;width:100%}
+.card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(var(--red),var(--cream));opacity:.7}
+.card:hover{transform:translateY(-4px);border-color:rgba(227,33,31,.5);box-shadow:0 16px 36px rgba(0,0,0,.5),0 0 0 1px rgba(227,33,31,.12)}
+.ic{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;background:rgba(227,33,31,.12);border:1px solid rgba(227,33,31,.3)}
+.ic svg{width:24px;height:24px;stroke:#ff7a74;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.card h3{font:800 1.3rem 'Playfair Display',serif;margin:16px 0 2px}
+.card .hi{color:var(--mut);font-size:.84rem}
+.card .ds{color:var(--cream2);font-size:.84rem;margin-top:10px;opacity:.85}
+.tag{display:inline-block;margin-top:14px;font:600 .66rem 'Inter';letter-spacing:.06em;padding:4px 10px;border-radius:999px;background:rgba(227,33,31,.14);color:#ff9c96;border:1px solid rgba(227,33,31,.3)}
+.tag.soon{background:rgba(255,255,255,.07);color:var(--cream2);border-color:var(--line)}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);opacity:0;pointer-events:none;background:var(--card2);border:1px solid rgba(227,33,31,.5);padding:12px 18px;border-radius:14px;font-size:.88rem;transition:.25s;z-index:60;max-width:90vw}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+footer{text-align:center;color:var(--mut);font-size:.85rem;padding:30px 18px 50px;border-top:1px solid var(--line)}
+footer b{color:var(--cream);font-family:'Playfair Display',serif;letter-spacing:.06em}
+footer a{color:var(--cream);text-decoration:underline;text-underline-offset:3px}
+@media(max-width:640px){.hero{grid-template-columns:1fr;justify-items:center;text-align:center;gap:30px;padding-top:36px}.lg{width:150px;height:150px}.btns,.steps{justify-content:center}.brand small,.pill.d{display:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header class="top">
-    <a class="brand" href="#"><img src="logo.jpg" alt="SSC Restart logo"><b>SSC <span>RESTART</span></b></a>
-  </header>
+<header class="top"><div class="top-in">
+  <a class="brand" href="./"><img src="logo.jpg" alt="SSC Restart logo"><span><b>SSC <i>RE</i>START</b><small>Study Hub</small></span></a>
+  <a class="pill d sp" href="https://youtube.com/@ssc_restart-l9i?si=bW0FVsU7kJlRl1aN" target="_blank" rel="noopener">YouTube</a>
+  <a class="pill l" href="https://t.me/ssc_restart" target="_blank" rel="noopener">@ssc_restart</a>
+</div></header>
 
-  <section class="hero">
-    <h1>SSC<em>Restart</em></h1>
-    <p>Free notes, PDFs, videos and practice sets for SSC aspirants. New material added every day.</p>
-    <div class="exams"><span>CGL</span><span>CHSL</span><span>CPO</span><span>MTS</span></div>
+<section class="hero">
+  <div class="lg"><img src="logo.jpg" alt="SSC Restart"></div>
+  <div>
+    <span class="eyebrow">CGL · CHSL · CPO · MTS</span>
+    <h1>SSC <em>RE</em>START</h1>
+    <p>Notes, previous-year questions and practice for every SSC aspirant. Pick a subject and start revising.</p>
     <div class="btns">
-      <a class="btn tg" href="https://t.me/ssc_restart" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M21.9 4.3 18.6 20c-.2 1-.9 1.3-1.8.8l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.3-8.4c.4-.4-.1-.6-.6-.2L6.1 13.4 1.2 11.9c-1-.3-1-1 .2-1.5L20.6 3c.9-.3 1.7.2 1.300 1.300z"/></svg>Join Telegram</a>
-      <a class="btn yt" href="https://youtube.com/@ssc_restart-l9i?si=bW0FVsU7kJlRl1aN" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.900.5A3 3 0 0 0 1 7.200C.5 9.1.5 12 .5 12s0 2.900.5 4.800a3 3 0 0 0 2.1 2.1c1.900.5 8.900.5 8.900.5s7 0 8.900-.5a3 3 0 0 0 2.1-2.1c.5-1.900.5-4.800.5-4.800s0-2.900-.5-4.800zM9.800 15.5v-7l6 3.5-6 3.5z"/></svg>Watch on YouTube</a>
+      <a class="btn tg" href="https://t.me/ssc_restart" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M21.9 4.3 18.6 20c-.2 1-.9 1.3-1.8.8l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.3-8.4c.4-.4-.1-.6-.6-.2L6.1 13.4 1.2 11.9c-1-.3-1-1 .2-1.5L20.6 3c.9-.3 1.7.2 1.3 1.3z"/></svg>Join Telegram</a>
+      <a class="btn yt" href="https://youtube.com/@ssc_restart-l9i?si=bW0FVsU7kJlRl1aN" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2C.5 9.1.5 12 .5 12s0 2.9.5 4.8a3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-4.8.5-4.8s0-2.9-.5-4.8zM9.8 15.5v-7l6 3.5-6 3.5z"/></svg>Watch on YouTube</a>
     </div>
-  </section>
-
-  <h2>Pick a subject</h2>
-  <div class="subs" id="subs"></div>
-
-  <h2>Latest study material</h2>
-  <div class="tools">
-    <input id="q" type="search" placeholder="Search topics, e.g. percentage, tenses, syllogism" aria-label="Search">
+    <div class="steps"><span>Reset</span><span>Plan</span><span>Study</span><span>Practice</span><span>Revise</span><span>Repeat</span></div>
   </div>
-  <div class="chips" id="types" style="margin-bottom:16px"></div>
-  <div class="list" id="list" aria-live="polite"></div>
+</section>
 
-  <div class="plan"><b>Your daily plan</b><span>Reset</span><span>Plan</span><span>Study</span><span>Practice</span><span>Revise</span><span>Repeat</span></div>
+<main>
+  <div class="sh"><h2>Choose your subject</h2><p>Tap a subject to open its notes and questions.</p></div>
+  <div class="grid" id="grid"></div>
+</main>
 
-  <footer>© <span id="yr"></span> SSC Restart · <a href="https://t.me/ssc_restart" target="_blank" rel="noopener">Telegram</a> · <a href="https://youtube.com/@ssc_restart-l9i?si=bW0FVsU7kJlRl1aN" target="_blank" rel="noopener">YouTube</a></footer>
-</div>
+<footer><b>SSC RESTART</b><br>Reset · Plan · Study · Practice · Revise · Repeat<br><br>Daily updates on <a href="https://t.me/ssc_restart" target="_blank" rel="noopener">Telegram</a> and <a href="https://youtube.com/@ssc_restart-l9i?si=bW0FVsU7kJlRl1aN" target="_blank" rel="noopener">YouTube</a></footer>
+<div class="toast" id="toast" role="status"></div>
 
 <script>
+/* Page for each subject lives in content.json. Empty = "Coming soon". */
 const SUBJECTS=[
- {id:'reasoning',name:'Reasoning',icon:'<circle cx="12" cy="12" r="9"/><path d="M9 10a3 3 0 1 1 4.5 2.6c-1 .6-1.5 1.1-1.5 2.400M12 18h.01"/>'},
- {id:'gs',name:'GS',icon:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/>'},
- {id:'maths',name:'Maths',icon:'<path d="M5 12h14M12 5v14M5 19l14-14" opacity=".0"/><path d="M6 6h12M6 18h12M7 6l10 12"/>'},
- {id:'english',name:'English',icon:'<path d="M4 19 10 5l6 14M6.5 14h7M18 10v9M18 13.5a2.5 2.5 0 1 1 0 .1"/>'},
- {id:'computer',name:'Computer',icon:'<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/>'},
- {id:'others',name:'Others',icon:'<rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/>'}
+ {id:'reasoning',name:'Reasoning',hi:'तर्कशक्ति',ds:'Puzzles, series, coding-decoding, syllogism',ic:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.8.4-1 .9-1 1.7M12 17h.01"/>'},
+ {id:'gs',name:'General Studies',hi:'सामान्य अध्ययन',ds:'History, polity, geography, science, current affairs',ic:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/>'},
+ {id:'maths',name:'Maths',hi:'गणित',ds:'Arithmetic, algebra, geometry, data interpretation',ic:'<path d="M5 7h6M8 4v6M13 8h6M5 17h6M13 15l6 4M19 15l-6 4"/>'},
+ {id:'english',name:'English',hi:'अंग्रेज़ी',ds:'Grammar, vocabulary, comprehension, error spotting',ic:'<path d="M4 19 10 5l6 14M6.5 14h7M19 11v8M19 14.5a2.5 2.5 0 1 0 0 .1"/>'},
+ {id:'computer',name:'Computer',hi:'कंप्यूटर',ds:'Chapter-wise notes and PYQ bank',ic:'<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/>'}
 ];
-const TYPES={all:'All',pdf:'PDF',video:'Video',quiz:'Quiz',notes:'Notes'};
-let items=[],sub='all',type='all',term='';
+const DEFAULT_PAGES={computer:'computer-notes-pyq.html'};
 const $=id=>document.getElementById(id);
-$('yr').textContent=new Date().getFullYear();
-
-function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function isNew(d){return (Date.now()-new Date(d))/864e5<=3}
-function fmt(d){return new Date(d).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})}
-
-function renderSubs(){
- $('subs').innerHTML=SUBJECTS.map(s=>{
-  const n=items.filter(i=>i.subject===s.id).length;
-  return `<button class="sub" data-id="${s.id}" aria-pressed="${sub===s.id}"><svg viewBox="0 0 24 24">${s.icon}</svg><strong>${s.name}</strong><small>${n} item${n==1?'':'s'}</small></button>`}).join('');
- document.querySelectorAll('.sub').forEach(b=>b.onclick=()=>{sub=sub===b.dataset.id?'all':b.dataset.id;renderSubs();renderList();$('list').scrollIntoView({behavior:'smooth',block:'nearest'})});
+function toast(m){const t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('on'),2600)}
+function render(pages){
+  $('grid').innerHTML=SUBJECTS.map(s=>{
+    const url=(pages[s.id]||'').trim();
+    const inner=`<div class="ic"><svg viewBox="0 0 24 24">${s.ic}</svg></div><h3>${s.name}</h3><div class="hi">${s.hi}</div><div class="ds">${s.ds}</div><span class="tag${url?'':' soon'}">${url?'Open':'Coming soon'}</span>`;
+    return url?`<a class="card" href="${url}">${inner}</a>`:`<button class="card" data-soon="${s.name}">${inner}</button>`}).join('');
+  document.querySelectorAll('[data-soon]').forEach(b=>b.onclick=()=>toast(b.dataset.soon+' is coming soon. Join Telegram for the update.'));
 }
-function renderTypes(){
- $('types').innerHTML=Object.entries(TYPES).map(([k,v])=>`<button class="chip" data-t="${k}" aria-pressed="${type===k}">${v}</button>`).join('');
- document.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{type=b.dataset.t;renderTypes();renderList()});
-}
-function renderList(){
- const t=term.toLowerCase();
- const rows=items.filter(i=>(sub==='all'||i.subject===sub)&&(type==='all'||i.type===type)&&(!t||(i.title+' '+(i.topic||'')).toLowerCase().includes(t)))
-  .sort((a,b)=>new Date(b.date)-new Date(a.date));
- $('list').innerHTML=rows.length?rows.map(i=>{
-  const s=SUBJECTS.find(x=>x.id===i.subject)||{name:'Others'};
-  return `<a class="item" href="${esc(i.url)}" target="_blank" rel="noopener"><span class="tag">${esc(i.type)}</span><div><h3>${esc(i.title)}${isNew(i.date)?'<span class="new">NEW</span>':''}</h3><p>${s.name} · ${fmt(i.date)}</p></div><span class="go">Open</span></a>`}).join('')
- :'<div class="empty">Nothing here yet. Try another subject, or check Telegram for today\'s post.</div>';
-}
-$('q').oninput=e=>{term=e.target.value;renderList()};
-
-fetch('content.json?v='+Date.now()).then(r=>r.json()).then(d=>{items=d.items||[]})
- .catch(()=>{$('list').innerHTML='<div class="empty">Could not load content.json. Open this site through Netlify or a local server.</div>'})
- .finally(()=>{renderSubs();renderTypes();if(items.length)renderList()});
+render(DEFAULT_PAGES);
+fetch('content.json?v='+Date.now()).then(r=>r.json()).then(d=>render(Object.assign({},DEFAULT_PAGES,d.pages||{}))).catch(()=>{});
 </script>
 </body>
 </html>
