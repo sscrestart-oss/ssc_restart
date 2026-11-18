@@ -62,6 +62,7 @@ main{max-width:1080px;margin:auto;padding:10px 18px 70px}
 .card h3{font:800 1.3rem 'Playfair Display',serif;margin:16px 0 2px}
 .card .hi{color:var(--mut);font-size:.84rem}
 .card .ds{color:var(--cream2);font-size:.84rem;margin:10px 0 16px;opacity:.85;flex:1}
+.tile{color:inherit;text-decoration:none}
 .acts{display:flex;flex-wrap:wrap;gap:8px}
 .act{flex:1 1 auto;text-align:center;font:600 .8rem 'Inter';padding:10px 14px;border-radius:999px;border:1px solid var(--line);color:var(--cream);background:rgba(255,255,255,.05);cursor:pointer;transition:.15s}
 .act:hover{border-color:var(--cream)}
@@ -101,7 +102,7 @@ footer a{color:var(--cream);text-decoration:underline;text-underline-offset:3px}
 <main>
   <div class="sh"><h2>CGL 2026 · Chapter-wise</h2><p>Read online or download the PDF for each subject.</p></div>
   <div class="grid" id="grid"></div>
-  <div class="sh"><h2>Computer</h2><p>Chapter-wise notes and a PYQ bank.</p></div>
+  <div class="sh"><h2>Subjects</h2><p>Tap a subject to see everything we have for it.</p></div>
   <div class="grid" id="grid2"></div>
 </main>
 
@@ -111,13 +112,15 @@ footer a{color:var(--cream);text-decoration:underline;text-underline-offset:3px}
 <script>
 /* Pages and PDFs for each subject live in content.json. Empty page = "Coming soon". */
 const SUBJECTS=[
- {id:'reasoning',g:1,name:'Reasoning',hi:'तर्कशक्ति',ds:'Puzzles, series, coding-decoding, syllogism',ic:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.8.4-1 .9-1 1.7M12 17h.01"/>'},
- {id:'gs',g:1,name:'General Studies',hi:'सामान्य अध्ययन',ds:'History, polity, geography, science, current affairs',ic:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/>'},
- {id:'maths',g:1,name:'Maths',hi:'गणित',ds:'Arithmetic, algebra, geometry, data interpretation',ic:'<path d="M5 7h6M8 4v6M13 8h6M5 17h6M13 15l6 4M19 15l-6 4"/>'},
- {id:'english',g:1,name:'English',hi:'अंग्रेज़ी',ds:'Grammar, vocabulary, comprehension, error spotting',ic:'<path d="M4 19 10 5l6 14M6.5 14h7M19 11v8M19 14.5a2.5 2.5 0 1 0 0 .1"/>'},
- {id:'computer',g:2,name:'Computer',hi:'कंप्यूटर',ds:'Chapter-wise notes and PYQ bank',ic:'<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/>'}
+ {id:'reasoning',name:'Reasoning',hi:'तर्कशक्ति',ds:'Puzzles, series, coding-decoding, syllogism',ic:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.8.4-1 .9-1 1.7M12 17h.01"/>'},
+ {id:'gs',name:'General Studies',hi:'सामान्य अध्ययन',ds:'History, polity, geography, science, current affairs',ic:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/>'},
+ {id:'maths',name:'Maths',hi:'गणित',ds:'Arithmetic, algebra, geometry, data interpretation',ic:'<path d="M5 7h6M8 4v6M13 8h6M5 17h6M13 15l6 4M19 15l-6 4"/>'},
+ {id:'english',name:'English',hi:'अंग्रेज़ी',ds:'Grammar, vocabulary, comprehension, error spotting',ic:'<path d="M4 19 10 5l6 14M6.5 14h7M19 11v8M19 14.5a2.5 2.5 0 1 0 0 .1"/>'},
+ {id:'computer',name:'Computer',hi:'कंप्यूटर',ds:'Chapter-wise notes and PYQ bank',ic:'<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/>'},
+ {id:'others',name:'Others',hi:'अन्य',ds:'Extra notes, strategy and exam updates',ic:'<rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/>'}
 ];
-const DEFAULTS={reasoning:{page:'reasoning-cgl-2026.html',pdf:['reasoning-cgl-2026.pdf']},gs:{page:'gs-cgl-2026.html',pdf:['gs-cgl-2026.pdf']},maths:{page:'maths-cgl-2026.html',pdf:['maths-cgl-2026-part1.pdf','maths-cgl-2026-part2.pdf']},english:{page:'english-cgl-2026.html',pdf:['english-cgl-2026.pdf']},computer:{page:'computer-notes-pyq.html',pdf:[]}};
+const CGL=['reasoning','gs','maths','english'];
+const DEFAULTS={reasoning:{page:'reasoning-cgl-2026.html',pdf:['reasoning-cgl-2026.pdf']},gs:{page:'gs-cgl-2026.html',pdf:['gs-cgl-2026.pdf']},maths:{page:'maths-cgl-2026.html',pdf:['maths-cgl-2026-part1.pdf','maths-cgl-2026-part2.pdf']},english:{page:'english-cgl-2026.html',pdf:['english-cgl-2026.pdf']}};
 const $=id=>document.getElementById(id);
 function toast(m){const t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('on'),2600)}
 function card(s,c){
@@ -125,8 +128,10 @@ function card(s,c){
   let acts=page?`<a class="act p" href="${page}">Open online</a>`:`<button class="act p off" data-soon="${s.name}">Coming soon</button>`;
   pdf.forEach((u,i)=>{acts+=`<a class="act" href="${u}" download>${pdf.length>1?'PDF part '+(i+1):'Download PDF'}</a>`});
   return `<div class="card"><div class="ic"><svg viewBox="0 0 24 24">${s.ic}</svg></div><h3>${s.name}</h3><div class="hi">${s.hi}</div><div class="ds">${s.ds}</div><div class="acts">${acts}</div></div>`}
+function tile(s){return `<a class="card tile" href="subject.html?s=${s.id}"><div class="ic"><svg viewBox="0 0 24 24">${s.ic}</svg></div><h3>${s.name}</h3><div class="hi">${s.hi}</div><div class="ds">${s.ds}</div><div class="acts"><span class="act p">Open</span></div></a>`}
 function render(cfg){
-  [1,2].forEach(g=>{$(g==1?'grid':'grid2').innerHTML=SUBJECTS.filter(s=>s.g==g).map(s=>card(s,cfg[s.id])).join('')});
+  $('grid').innerHTML=SUBJECTS.filter(s=>CGL.includes(s.id)).map(s=>card(s,cfg[s.id])).join('');
+  $('grid2').innerHTML=SUBJECTS.map(tile).join('');
   document.querySelectorAll('[data-soon]').forEach(b=>b.onclick=()=>toast(b.dataset.soon+' is coming soon. Join Telegram for the update.'));
 }
 render(DEFAULTS);

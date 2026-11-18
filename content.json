@@ -3,7 +3,27 @@
     "reasoning": { "page": "reasoning-cgl-2026.html", "pdf": ["reasoning-cgl-2026.pdf"] },
     "gs":        { "page": "gs-cgl-2026.html",        "pdf": ["gs-cgl-2026.pdf"] },
     "maths":     { "page": "maths-cgl-2026.html",     "pdf": ["maths-cgl-2026-part1.pdf", "maths-cgl-2026-part2.pdf"] },
-    "english":   { "page": "english-cgl-2026.html",   "pdf": ["english-cgl-2026.pdf"] },
-    "computer":  { "page": "computer-notes-pyq.html", "pdf": [] }
+    "english":   { "page": "english-cgl-2026.html",   "pdf": ["english-cgl-2026.pdf"] }
+  },
+  "sections": {
+    "reasoning": [
+      { "title": "CGL 2026 · Chapter-wise", "desc": "Reasoning Rapo Series: chapter-wise questions", "page": "reasoning-cgl-2026.html", "pdf": ["reasoning-cgl-2026.pdf"] }
+    ],
+    "gs": [
+      { "title": "CGL 2026 · Chapter-wise", "desc": "GS Edge Series: chapter-wise questions", "page": "gs-cgl-2026.html", "pdf": ["gs-cgl-2026.pdf"] }
+    ],
+    "maths": [
+      { "title": "CGL 2026 · Chapter-wise", "desc": "Maths Marvel Series: chapter-wise questions", "page": "maths-cgl-2026.html", "pdf": ["maths-cgl-2026-part1.pdf", "maths-cgl-2026-part2.pdf"] }
+    ],
+    "english": [
+      { "title": "CGL 2026 · Chapter-wise", "desc": "English Edge Series: chapter-wise questions", "page": "english-cgl-2026.html", "pdf": ["english-cgl-2026.pdf"] },
+      { "title": "Comprehension Masterclass", "desc": "Cloze test, reading comprehension and PQRS", "page": "english-comprehension-masterclass.html", "pdf": [] },
+      { "title": "English Grammar Rule Book", "desc": "Rules with quiz, built from SSC PYQs 2025–26", "page": "english-grammar-rulebook.html", "pdf": [] },
+      { "title": "English Vocabulary Premium", "desc": "Vocabulary practice from SSC PYQs 2025–26", "page": "english-vocab-premium.html", "pdf": [] }
+    ],
+    "computer": [
+      { "title": "Computer Notes and PYQ Bank", "desc": "Chapter-wise notes and previous-year questions", "page": "computer-notes-pyq.html", "pdf": [] }
+    ],
+    "others": []
   }
 }
