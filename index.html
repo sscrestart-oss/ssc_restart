@@ -54,16 +54,20 @@ main{max-width:1080px;margin:auto;padding:10px 18px 70px}
 .sh h2::after{content:"";display:block;width:54px;height:3px;background:linear-gradient(90deg,var(--red),var(--cream));border-radius:3px;margin-top:8px}
 .sh p{color:var(--mut);font-size:.92rem;margin-top:8px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
-.card{position:relative;display:block;background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:18px;padding:22px 20px 20px;cursor:pointer;transition:.25s;overflow:hidden;text-align:left;color:inherit;font:inherit;width:100%}
+.card{position:relative;display:flex;flex-direction:column;background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:18px;padding:22px 20px 18px;transition:.25s;overflow:hidden}
 .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(var(--red),var(--cream));opacity:.7}
 .card:hover{transform:translateY(-4px);border-color:rgba(227,33,31,.5);box-shadow:0 16px 36px rgba(0,0,0,.5),0 0 0 1px rgba(227,33,31,.12)}
 .ic{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;background:rgba(227,33,31,.12);border:1px solid rgba(227,33,31,.3)}
 .ic svg{width:24px;height:24px;stroke:#ff7a74;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .card h3{font:800 1.3rem 'Playfair Display',serif;margin:16px 0 2px}
 .card .hi{color:var(--mut);font-size:.84rem}
-.card .ds{color:var(--cream2);font-size:.84rem;margin-top:10px;opacity:.85}
-.tag{display:inline-block;margin-top:14px;font:600 .66rem 'Inter';letter-spacing:.06em;padding:4px 10px;border-radius:999px;background:rgba(227,33,31,.14);color:#ff9c96;border:1px solid rgba(227,33,31,.3)}
-.tag.soon{background:rgba(255,255,255,.07);color:var(--cream2);border-color:var(--line)}
+.card .ds{color:var(--cream2);font-size:.84rem;margin:10px 0 16px;opacity:.85;flex:1}
+.acts{display:flex;flex-wrap:wrap;gap:8px}
+.act{flex:1 1 auto;text-align:center;font:600 .8rem 'Inter';padding:10px 14px;border-radius:999px;border:1px solid var(--line);color:var(--cream);background:rgba(255,255,255,.05);cursor:pointer;transition:.15s}
+.act:hover{border-color:var(--cream)}
+.act.p{background:linear-gradient(135deg,var(--red),var(--red2));border-color:transparent;color:#fff}
+.act.p:hover{filter:brightness(1.12)}
+.act.off{opacity:.55}
 .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);opacity:0;pointer-events:none;background:var(--card2);border:1px solid rgba(227,33,31,.5);padding:12px 18px;border-radius:14px;font-size:.88rem;transition:.25s;z-index:60;max-width:90vw}
 .toast.on{opacity:1;transform:translate(-50%,0)}
 footer{text-align:center;color:var(--mut);font-size:.85rem;padding:30px 18px 50px;border-top:1px solid var(--line)}
@@ -95,34 +99,38 @@ footer a{color:var(--cream);text-decoration:underline;text-underline-offset:3px}
 </section>
 
 <main>
-  <div class="sh"><h2>Choose your subject</h2><p>Tap a subject to open its notes and questions.</p></div>
+  <div class="sh"><h2>CGL 2026 · Chapter-wise</h2><p>Read online or download the PDF for each subject.</p></div>
   <div class="grid" id="grid"></div>
+  <div class="sh"><h2>Computer</h2><p>Chapter-wise notes and a PYQ bank.</p></div>
+  <div class="grid" id="grid2"></div>
 </main>
 
 <footer><b>SSC RESTART</b><br>Reset · Plan · Study · Practice · Revise · Repeat<br><br>Daily updates on <a href="https://t.me/ssc_restart" target="_blank" rel="noopener">Telegram</a> and <a href="https://youtube.com/@ssc_restart-l9i?si=bW0FVsU7kJlRl1aN" target="_blank" rel="noopener">YouTube</a></footer>
 <div class="toast" id="toast" role="status"></div>
 
 <script>
-/* Page for each subject lives in content.json. Empty = "Coming soon". */
+/* Pages and PDFs for each subject live in content.json. Empty page = "Coming soon". */
 const SUBJECTS=[
- {id:'reasoning',name:'Reasoning',hi:'तर्कशक्ति',ds:'Puzzles, series, coding-decoding, syllogism',ic:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.8.4-1 .9-1 1.7M12 17h.01"/>'},
- {id:'gs',name:'General Studies',hi:'सामान्य अध्ययन',ds:'History, polity, geography, science, current affairs',ic:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/>'},
- {id:'maths',name:'Maths',hi:'गणित',ds:'Arithmetic, algebra, geometry, data interpretation',ic:'<path d="M5 7h6M8 4v6M13 8h6M5 17h6M13 15l6 4M19 15l-6 4"/>'},
- {id:'english',name:'English',hi:'अंग्रेज़ी',ds:'Grammar, vocabulary, comprehension, error spotting',ic:'<path d="M4 19 10 5l6 14M6.5 14h7M19 11v8M19 14.5a2.5 2.5 0 1 0 0 .1"/>'},
- {id:'computer',name:'Computer',hi:'कंप्यूटर',ds:'Chapter-wise notes and PYQ bank',ic:'<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/>'}
+ {id:'reasoning',g:1,name:'Reasoning',hi:'तर्कशक्ति',ds:'Puzzles, series, coding-decoding, syllogism',ic:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.8.4-1 .9-1 1.7M12 17h.01"/>'},
+ {id:'gs',g:1,name:'General Studies',hi:'सामान्य अध्ययन',ds:'History, polity, geography, science, current affairs',ic:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/>'},
+ {id:'maths',g:1,name:'Maths',hi:'गणित',ds:'Arithmetic, algebra, geometry, data interpretation',ic:'<path d="M5 7h6M8 4v6M13 8h6M5 17h6M13 15l6 4M19 15l-6 4"/>'},
+ {id:'english',g:1,name:'English',hi:'अंग्रेज़ी',ds:'Grammar, vocabulary, comprehension, error spotting',ic:'<path d="M4 19 10 5l6 14M6.5 14h7M19 11v8M19 14.5a2.5 2.5 0 1 0 0 .1"/>'},
+ {id:'computer',g:2,name:'Computer',hi:'कंप्यूटर',ds:'Chapter-wise notes and PYQ bank',ic:'<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/>'}
 ];
-const DEFAULT_PAGES={computer:'computer-notes-pyq.html'};
+const DEFAULTS={reasoning:{page:'reasoning-cgl-2026.html',pdf:['reasoning-cgl-2026.pdf']},gs:{page:'gs-cgl-2026.html',pdf:['gs-cgl-2026.pdf']},maths:{page:'maths-cgl-2026.html',pdf:['maths-cgl-2026-part1.pdf','maths-cgl-2026-part2.pdf']},english:{page:'english-cgl-2026.html',pdf:['english-cgl-2026.pdf']},computer:{page:'computer-notes-pyq.html',pdf:[]}};
 const $=id=>document.getElementById(id);
 function toast(m){const t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('on'),2600)}
-function render(pages){
-  $('grid').innerHTML=SUBJECTS.map(s=>{
-    const url=(pages[s.id]||'').trim();
-    const inner=`<div class="ic"><svg viewBox="0 0 24 24">${s.ic}</svg></div><h3>${s.name}</h3><div class="hi">${s.hi}</div><div class="ds">${s.ds}</div><span class="tag${url?'':' soon'}">${url?'Open':'Coming soon'}</span>`;
-    return url?`<a class="card" href="${url}">${inner}</a>`:`<button class="card" data-soon="${s.name}">${inner}</button>`}).join('');
+function card(s,c){
+  const page=((c&&c.page)||'').trim(), pdf=((c&&c.pdf)||[]).filter(Boolean);
+  let acts=page?`<a class="act p" href="${page}">Open online</a>`:`<button class="act p off" data-soon="${s.name}">Coming soon</button>`;
+  pdf.forEach((u,i)=>{acts+=`<a class="act" href="${u}" download>${pdf.length>1?'PDF part '+(i+1):'Download PDF'}</a>`});
+  return `<div class="card"><div class="ic"><svg viewBox="0 0 24 24">${s.ic}</svg></div><h3>${s.name}</h3><div class="hi">${s.hi}</div><div class="ds">${s.ds}</div><div class="acts">${acts}</div></div>`}
+function render(cfg){
+  [1,2].forEach(g=>{$(g==1?'grid':'grid2').innerHTML=SUBJECTS.filter(s=>s.g==g).map(s=>card(s,cfg[s.id])).join('')});
   document.querySelectorAll('[data-soon]').forEach(b=>b.onclick=()=>toast(b.dataset.soon+' is coming soon. Join Telegram for the update.'));
 }
-render(DEFAULT_PAGES);
-fetch('content.json?v='+Date.now()).then(r=>r.json()).then(d=>render(Object.assign({},DEFAULT_PAGES,d.pages||{}))).catch(()=>{});
+render(DEFAULTS);
+fetch('content.json?v='+Date.now()).then(r=>r.json()).then(d=>render(Object.assign({},DEFAULTS,d.subjects||{}))).catch(()=>{});
 </script>
 </body>
 </html>
