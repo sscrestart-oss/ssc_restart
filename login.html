@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#09090a"><meta name="robots" content="noindex">
+<title>Log in · SSC Restart</title><link rel="icon" href="logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"></head><body>
+<div class="top"><div class="top-in"><a class="brand" href="login.html"><img src="logo.jpg" alt="SSC Restart logo"><span><b>SSC <i>RE</i>START</b><small>Study Hub</small></span></a></div></div>
+<div class="box">
+  <h2 id="h">Welcome back</h2><p class="s" id="sub">Log in to open your study material.</p>
+  <div class="tabs" id="tabs"><button data-m="in" aria-pressed="true">Log in</button><button data-m="up" aria-pressed="false">Sign up</button></div>
+  <form id="f" novalidate>
+    <div id="fe"><label for="em">Email</label><input id="em" type="email" autocomplete="email" required></div>
+    <div id="fp"><label for="pw">Password</label><input id="pw" type="password" autocomplete="current-password" minlength="8" required></div>
+    <button class="go" id="go" type="submit">Log in</button>
+  </form>
+  <div class="msg" id="msg" role="alert"></div>
+  <button class="lnk" id="fg" type="button">Forgot password?</button>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="config.js"></script><script src="shared.js"></script>
+<script>
+const q=new URLSearchParams(location.search);
+const nx=q.get('next')||'index.html'; const NEXT=/^[\w.-]+(\?[\w=&%.-]*)?$/.test(nx)?nx:'index.html';
+let mode='in';
+function say(t,k){const m=$('msg');m.className='msg '+(t?k:'');m.textContent=t||''}
+function setMode(m){mode=m;say('');
+  document.querySelectorAll('#tabs button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.m===m));
+  $('tabs').style.display=(m==='in'||m==='up')?'flex':'none';
+  $('fe').style.display=m==='new'?'none':'block'; $('fp').style.display=m==='forgot'?'none':'block';
+  $('pw').autocomplete=m==='in'?'current-password':'new-password';
+  $('h').textContent={in:'Welcome back',up:'Create your account',forgot:'Reset password',new:'Set a new password'}[m];
+  $('sub').textContent={in:'Log in to open your study material.',up:'Free. Use a real email; you must verify it.',forgot:'We will email you a reset link.',new:'Choose a new password (8+ characters).'}[m];
+  $('go').textContent={in:'Log in',up:'Sign up',forgot:'Send reset link',new:'Save password'}[m];
+  $('fg').style.display=m==='in'?'inline':'none';
+}
+document.querySelectorAll('#tabs button').forEach(b=>b.onclick=()=>setMode(b.dataset.m));
+$('fg').onclick=()=>setMode('forgot');
+SB.auth.onAuthStateChange(ev=>{if(ev==='PASSWORD_RECOVERY')setMode('new')});
+$('f').onsubmit=async e=>{
+  e.preventDefault(); say(''); const em=$('em').value.trim(), pw=$('pw').value; $('go').disabled=true;
+  try{
+    if((mode==='in'||mode==='up'||mode==='new')&&pw.length<8) throw new Error('Password must be at least 8 characters.');
+    if(mode==='in'){
+      const {error}=await SB.auth.signInWithPassword({email:em,password:pw});
+      if(error) throw new Error('Wrong email or password, or your email is not verified yet.');
+      location.replace(NEXT);
+    }else if(mode==='up'){
+      const {error}=await SB.auth.signUp({email:em,password:pw,options:{emailRedirectTo:location.origin+'/login.html'}});
+      if(error) throw new Error(error.message);
+      say('Check your email and click the verification link. Then come back and log in.','ok'); $('f').reset();
+    }else if(mode==='forgot'){
+      await SB.auth.resetPasswordForEmail(em,{redirectTo:location.origin+'/login.html'});
+      say('If that email has an account, a reset link is on its way.','ok');
+    }else if(mode==='new'){
+      const {error}=await SB.auth.updateUser({password:pw});
+      if(error) throw new Error(error.message);
+      say('Password changed. Taking you in…','ok'); setTimeout(()=>location.replace('index.html'),900);
+    }
+  }catch(err){say(err.message,'err')}
+  $('go').disabled=false;
+};
+(async()=>{const {data}=await SB.auth.getSession(); if(data.session&&!/type=recovery/.test(location.hash)) location.replace(NEXT)})();
+</script></body></html>

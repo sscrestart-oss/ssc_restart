@@ -1,123 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>SSC Restart – Subject</title>
-<meta name="description" content="Notes, PYQs and practice for SSC CGL, CHSL, CPO and MTS. Reasoning, GS, Maths, English and Computer.">
-<meta name="theme-color" content="#09090a">
-<link rel="icon" href="logo.jpg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#09090a"><meta name="robots" content="noindex">
+<title>Subject · SSC Restart</title><link rel="icon" href="logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600&display=swap" rel="stylesheet">
-<style>
-:root{--bg:#09090a;--card:#151516;--card2:#1e1e20;--line:rgba(255,255,255,.12);--cream:#f4f1ea;--cream2:#d6d2c8;--red:#e3211f;--red2:#a40f14;--mut:#a6a299}
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html{scroll-behavior:smooth}
-body{font-family:'Inter','Noto Sans Devanagari',system-ui,sans-serif;background:var(--bg);color:var(--cream);line-height:1.6;min-height:100vh}
-body::before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(900px 480px at 82% -6%,rgba(227,33,31,.18),transparent 62%),radial-gradient(700px 520px at -10% 30%,rgba(227,33,31,.10),transparent 60%),radial-gradient(1200px 700px at 50% 120%,rgba(255,255,255,.06),transparent 60%),var(--bg)}
-a{color:inherit;text-decoration:none}
-:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
-.top{position:sticky;top:0;z-index:50;background:rgba(10,8,7,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0)}
-.top-in{max-width:1080px;margin:auto;display:flex;align-items:center;gap:10px;padding:10px 18px}
-.brand{display:flex;align-items:center;gap:11px}
-.brand img{width:42px;height:42px;border-radius:50%;border:2px solid var(--red);box-shadow:0 0 18px rgba(227,33,31,.45);object-fit:cover}
-.brand b{font:800 1.18rem/1 'Playfair Display',serif;letter-spacing:.06em}
-.brand b i{font-style:normal;color:var(--red)}
-.brand small{display:block;font-size:.62rem;letter-spacing:.2em;color:var(--mut);text-transform:uppercase;margin-top:3px}
-.top .sp{margin-left:auto}
-.pill{font:600 .78rem 'Inter';border-radius:999px;padding:8px 14px;white-space:nowrap;transition:transform .15s}
-.pill:hover{transform:translateY(-2px)}
-.pill.l{color:#111;background:linear-gradient(135deg,#fff,#d9d5cb)}
-.pill.d{border:1px solid var(--line);background:var(--card);color:var(--cream2)}
-.hero{max-width:1080px;margin:auto;padding:48px 18px 20px;display:grid;grid-template-columns:auto 1fr;gap:38px;align-items:center}
-.lg{position:relative;width:190px;height:190px}
-.lg::before{content:"";position:absolute;inset:-22px;border-radius:50%;background:radial-gradient(circle,rgba(227,33,31,.38),transparent 68%);animation:glow 4s ease-in-out infinite}
-.lg img{position:relative;width:100%;height:100%;border-radius:50%;border:3px solid var(--red);box-shadow:0 0 0 6px rgba(227,33,31,.14),0 20px 50px rgba(0,0,0,.6);object-fit:cover}
-@keyframes glow{50%{opacity:.55;transform:scale(1.06)}}
-.eyebrow{display:inline-block;font:700 .68rem 'Inter';letter-spacing:.24em;text-transform:uppercase;border:1px solid rgba(227,33,31,.35);padding:5px 12px;border-radius:999px;background:rgba(227,33,31,.07)}
-h1{font:900 clamp(2.4rem,7vw,4.4rem)/1.04 'Playfair Display',serif;margin:14px 0 10px;letter-spacing:-.01em}
-h1 em{font-style:normal;color:var(--red);text-shadow:0 0 30px rgba(227,33,31,.4)}
-.hero p{color:var(--mut);max-width:560px;font-size:1.04rem}
-.btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
-.btn{display:inline-flex;align-items:center;gap:9px;font:600 .92rem 'Inter';padding:13px 22px;border-radius:999px;transition:transform .15s,box-shadow .15s}
-.btn:hover{transform:translateY(-2px)}
-.btn svg{width:19px;height:19px;fill:currentColor}
-.btn.tg{background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;box-shadow:0 8px 26px rgba(227,33,31,.4)}
-.btn.yt{border:1.5px solid rgba(244,241,234,.6);color:var(--cream)}
-.btn.yt:hover{background:var(--cream);color:#111}
-.steps{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px;font:600 .72rem 'Inter';letter-spacing:.12em;text-transform:uppercase;color:var(--mut)}
-.steps span::after{content:"›";margin-left:8px;color:var(--red)}.steps span:last-child::after{content:"✓";color:var(--cream)}
-main{max-width:1080px;margin:auto;padding:10px 18px 70px}
-.sh{margin:34px 0 18px}
-.sh h2{font:800 1.8rem 'Playfair Display',serif}
-.sh h2::after{content:"";display:block;width:54px;height:3px;background:linear-gradient(90deg,var(--red),var(--cream));border-radius:3px;margin-top:8px}
-.sh p{color:var(--mut);font-size:.92rem;margin-top:8px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
-.card{position:relative;display:flex;flex-direction:column;background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:18px;padding:22px 20px 18px;transition:.25s;overflow:hidden}
-.card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(var(--red),var(--cream));opacity:.7}
-.card:hover{transform:translateY(-4px);border-color:rgba(227,33,31,.5);box-shadow:0 16px 36px rgba(0,0,0,.5),0 0 0 1px rgba(227,33,31,.12)}
-.ic{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;background:rgba(227,33,31,.12);border:1px solid rgba(227,33,31,.3)}
-.ic svg{width:24px;height:24px;stroke:#ff7a74;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.card h3{font:800 1.3rem 'Playfair Display',serif;margin:16px 0 2px}
-.card .hi{color:var(--mut);font-size:.84rem}
-.card .ds{color:var(--cream2);font-size:.84rem;margin:10px 0 16px;opacity:.85;flex:1}
-.tile{color:inherit;text-decoration:none}
-.acts{display:flex;flex-wrap:wrap;gap:8px}
-.act{flex:1 1 auto;text-align:center;font:600 .8rem 'Inter';padding:10px 14px;border-radius:999px;border:1px solid var(--line);color:var(--cream);background:rgba(255,255,255,.05);cursor:pointer;transition:.15s}
-.act:hover{border-color:var(--cream)}
-.act.p{background:linear-gradient(135deg,var(--red),var(--red2));border-color:transparent;color:#fff}
-.act.p:hover{filter:brightness(1.12)}
-.act.off{opacity:.55}
-.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);opacity:0;pointer-events:none;background:var(--card2);border:1px solid rgba(227,33,31,.5);padding:12px 18px;border-radius:14px;font-size:.88rem;transition:.25s;z-index:60;max-width:90vw}
-.toast.on{opacity:1;transform:translate(-50%,0)}
-footer{text-align:center;color:var(--mut);font-size:.85rem;padding:30px 18px 50px;border-top:1px solid var(--line)}
-footer b{color:var(--cream);font-family:'Playfair Display',serif;letter-spacing:.06em}
-footer a{color:var(--cream);text-decoration:underline;text-underline-offset:3px}
-@media(max-width:640px){.hero{grid-template-columns:1fr;justify-items:center;text-align:center;gap:30px;padding-top:36px}.lg{width:150px;height:150px}.btns,.steps{justify-content:center}.brand small,.pill.d{display:none}}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-
-.crumb{max-width:1080px;margin:auto;padding:28px 18px 0}
-.crumb a{font:600 .84rem 'Inter';color:var(--cream2);border:1px solid var(--line);background:var(--card);padding:8px 16px;border-radius:999px;display:inline-block}
-.crumb a:hover{border-color:var(--cream)}
-.ttl{max-width:1080px;margin:auto;padding:22px 18px 4px}
-.ttl h1{font-size:clamp(2.2rem,6vw,3.6rem);margin:0 0 4px}
-.ttl .hi{color:var(--mut)}
-.list{display:grid;gap:14px}
-.row{position:relative;display:flex;align-items:center;gap:16px;flex-wrap:wrap;background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:18px;padding:18px 20px 18px 22px;overflow:hidden}
-.row::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(var(--red),var(--cream));opacity:.7}
-.row .tx{flex:1 1 260px}
-.row h3{font:800 1.2rem 'Playfair Display',serif}
-.row p{color:var(--mut);font-size:.88rem;margin-top:3px}
-.row .acts{flex:0 0 auto}
-.empty{padding:36px 22px;text-align:center;color:var(--mut);border:1.5px dashed var(--line);border-radius:18px}
-.empty b{display:block;color:var(--cream);font:800 1.3rem 'Playfair Display',serif;margin-bottom:6px}
-</style></head>
-<body>
-<header class="top"><div class="top-in">
-  <a class="brand" href="./"><img src="logo.jpg" alt="SSC Restart logo"><span><b>SSC <i>RE</i>START</b><small>Study Hub</small></span></a>
-  <a class="pill l sp" href="https://t.me/ssc_restart" target="_blank" rel="noopener">@ssc_restart</a>
-</div></header>
-<div class="crumb"><a href="./">← Home</a></div>
-<div class="ttl"><h1 id="t">Subject</h1><div class="hi" id="h"></div></div>
-<main><div class="list" id="list"></div></main>
+<link rel="stylesheet" href="style.css"></head><body>
+<div id="hdr"></div>
+<div class="crumb"><a href="index.html">← Home</a></div>
+<div class="ttl"><h1 id="t">Subject</h1><div class="hi" id="h" style="color:var(--mut)"></div></div>
+<main><div class="list" id="list"><div class="empty">Loading…</div></div></main>
 <footer><b>SSC RESTART</b><br>Reset · Plan · Study · Practice · Revise · Repeat</footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="config.js"></script><script src="shared.js"></script>
 <script>
-const NAMES={reasoning:['Reasoning','तर्कशक्ति'],gs:['General Studies','सामान्य अध्ययन'],maths:['Maths','गणित'],english:['English','अंग्रेज़ी'],computer:['Computer','कंप्यूटर'],others:['Others','अन्य']};
-const id=(new URLSearchParams(location.search).get('s')||'').toLowerCase();
-const n=NAMES[id]||['Subject',''];
-document.getElementById('t').textContent=n[0];document.getElementById('h').textContent=n[1];document.title=n[0]+' · SSC Restart';
-function esc(x){return String(x||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
-function draw(items){
-  const L=document.getElementById('list');
-  if(!NAMES[id]||!items.length){L.innerHTML='<div class="empty"><b>Coming soon</b>New material is added often. Join <a href="https://t.me/ssc_restart" target="_blank" rel="noopener" style="text-decoration:underline">@ssc_restart</a> on Telegram to know when it arrives.</div>';return}
-  L.innerHTML=items.map(i=>{const pdf=(i.pdf||[]).filter(Boolean);
-    let a=i.page?`<a class="act p" href="${esc(i.page)}">Open online</a>`:'';
-    pdf.forEach((u,k)=>a+=`<a class="act" href="${esc(u)}" download>${pdf.length>1?'PDF part '+(k+1):'Download PDF'}</a>`);
-    return `<div class="row"><div class="tx"><h3>${esc(i.title)}</h3><p>${esc(i.desc)}</p></div><div class="acts">${a}</div></div>`}).join('');
-}
-draw([]);
-fetch('content.json?v='+Date.now()).then(r=>r.json()).then(d=>draw((d.sections||{})[id]||[])).catch(()=>{});
-</script>
-</body>
-</html>
+(async()=>{
+  const s=await requireLogin(); if(!s)return;
+  renderHeader(await myRole(s.user.id));
+  const id=(new URLSearchParams(location.search).get('s')||'').toLowerCase();
+  const sec=SECTIONS.find(x=>x.id===id);
+  if(!sec){$('list').innerHTML='<div class="empty">Subject not found.</div>';return}
+  $('t').textContent=sec.name; $('h').textContent=sec.hi; document.title=sec.name+' · SSC Restart';
+  const {data,error}=await SB.from('items').select('*').eq('section',id).order('sort_order');
+  $('list').innerHTML=error?'<div class="empty">Could not load. Please refresh.</div>':(data.length?data.map(row).join(''):'<div class="empty"><b style="display:block;color:var(--cream);font:800 1.3rem Playfair Display,serif;margin-bottom:6px">Coming soon</b>Join @ssc_restart on Telegram to know when new material arrives.</div>');
+})();
+</script></body></html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#09090a"><meta name="robots" content="noindex">
+<title>Admin · SSC Restart</title><link rel="icon" href="logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"></head><body>
+<div id="hdr"></div>
+<div class="wrapa" id="app"><div class="empty">Checking access…</div></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="config.js"></script><script src="shared.js"></script>
+<script>
+let ME, SEC='cgl2026', ITEMS=[];
+const app=$('app');
+function note(t,k){const m=$('am');if(!m)return;m.className='msg '+(t?k:'');m.textContent=t||''}
+
+(async()=>{
+  const s=await requireLogin(); if(!s)return; ME=s.user;
+  const role=await myRole(ME.id); renderHeader(role);
+  if(role!=='admin'){app.innerHTML='<div class="box"><h2>Admins only</h2><p class="s">Your account does not have admin access.</p><a class="btn tg" href="index.html">Back to home</a></div>';return}
+  const {data:a}=await SB.auth.mfa.getAuthenticatorAssuranceLevel();
+  if(a&&a.currentLevel==='aal2') return panel();
+  mfaGate();
+})();
+
+/* ---------- two-factor gate ---------- */
+async function mfaGate(){
+  const {data:f}=await SB.auth.mfa.listFactors();
+  const all=(f&&f.all)||[];
+  for(const x of all.filter(x=>x.status==='unverified')) await SB.auth.mfa.unenroll({factorId:x.id});
+  const ok=all.find(x=>x.factor_type==='totp'&&x.status==='verified');
+  let factorId, extra='';
+  if(ok){factorId=ok.id}
+  else{
+    const {data,error}=await SB.auth.mfa.enroll({factorType:'totp',friendlyName:'SSC Restart admin'});
+    if(error){app.innerHTML='<div class="box"><h2>Setup error</h2><p class="s">'+esc(error.message)+'</p></div>';return}
+    factorId=data.id;
+    extra=`<p class="s">First time: scan this QR code with Google Authenticator, Authy or Microsoft Authenticator.</p><div class="qr"><img alt="QR code" src="${esc(data.totp.qr_code)}"></div><p class="s">Cannot scan? Enter this key manually:</p><code class="k">${esc(data.totp.secret)}</code>`;
+  }
+  app.innerHTML=`<div class="box"><h2>Admin verification</h2><p class="s">Enter the 6-digit code from your authenticator app.</p>${extra}<form id="mf"><label for="cd">6-digit code</label><input id="cd" type="text" inputmode="numeric" maxlength="6" autocomplete="one-time-code" required><button class="go" type="submit">Verify</button></form><div class="msg" id="am"></div></div>`;
+  $('mf').onsubmit=async e=>{e.preventDefault();note('');
+    const ch=await SB.auth.mfa.challenge({factorId});
+    if(ch.error)return note(ch.error.message,'err');
+    const v=await SB.auth.mfa.verify({factorId,challengeId:ch.data.id,code:$('cd').value.trim()});
+    if(v.error)return note('Wrong code. Try again.','err');
+    location.reload();
+  };
+}
+
+/* ---------- admin panel ---------- */
+async function panel(){
+  app.innerHTML=`<div class="sh"><h2>Admin panel</h2><p>Add, reorder and delete content. Changes are live for members immediately.</p></div>
+  <div class="tabs" id="st" style="flex-wrap:wrap"></div>
+  <div class="panel"><h3 id="sn"></h3><div class="list" id="il" style="margin-top:12px"></div></div>
+  <div class="panel"><h3>Add new item</h3>
+    <label for="ti">Title</label><input id="ti" type="text" maxlength="200">
+    <label for="de">Description (optional)</label><textarea id="de" maxlength="500"></textarea>
+    <label for="fl">Files (.html online pages and/or .pdf downloads, up to 50 MB each)</label><input id="fl" type="file" multiple accept=".html,.pdf">
+    <button class="go" id="add">Upload and publish</button><div class="msg" id="am"></div></div>
+  <div class="panel"><h3>Recent activity</h3><div class="audit" id="au">Loading…</div></div>
+  <div class="panel"><h3>Members</h3><p class="s" id="mc" style="color:var(--mut)"></p></div>`;
+  $('st').innerHTML=ADMIN_SECTIONS.map(x=>`<button data-s="${x.id}" aria-pressed="${x.id===SEC}" style="flex:0 0 auto;padding:10px 16px">${esc(x.name)}</button>`).join('');
+  document.querySelectorAll('#st button').forEach(b=>b.onclick=()=>{SEC=b.dataset.s;document.querySelectorAll('#st button').forEach(x=>x.setAttribute('aria-pressed',x===b));load()});
+  $('add').onclick=addItem; load(); audit();
+  const {count}=await SB.from('profiles').select('id',{count:'exact',head:true}); $('mc').textContent=(count||0)+' registered members (including admin).';
+}
+async function load(){
+  $('sn').textContent=ADMIN_SECTIONS.find(x=>x.id===SEC).name;
+  const {data,error}=await SB.from('items').select('*').eq('section',SEC).order('sort_order');
+  ITEMS=data||[];
+  $('il').innerHTML=error?'<div class="empty">Could not load.</div>':(ITEMS.length?ITEMS.map((it,i)=>`<div class="row"><div class="tx"><h3>${esc(it.title)}</h3><p>${(it.files||[]).map(f=>esc(f.label||f.kind)).join(' · ')||'no files'}</p></div><div class="acts"><button class="act sm" data-up="${i}" ${i?'':'disabled'}>↑</button><button class="act sm" data-dn="${i}" ${i<ITEMS.length-1?'':'disabled'}>↓</button><button class="act sm del" data-del="${i}">Delete</button></div></div>`).join(''):'<div class="empty">No items in this section yet.</div>');
+}
+document.addEventListener('click',async e=>{
+  const u=e.target.closest('[data-up]'),d=e.target.closest('[data-dn]'),x=e.target.closest('[data-del]');
+  if(u||d){const i=+(u?u.dataset.up:d.dataset.dn),j=u?i-1:i+1,A=ITEMS[i],B=ITEMS[j];if(!A||!B)return;
+    let a=A.sort_order,b=B.sort_order; if(a===b)b=a+(u?-1:1);
+    await SB.from('items').update({sort_order:b}).eq('id',A.id); await SB.from('items').update({sort_order:a}).eq('id',B.id); load(); audit();}
+  if(x){const it=ITEMS[+x.dataset.del]; if(!it||!confirm('Delete "'+it.title+'" and its files? This cannot be undone.'))return;
+    const paths=(it.files||[]).map(f=>f.path); if(paths.length) await SB.storage.from('content').remove(paths);
+    const {error}=await SB.from('items').delete().eq('id',it.id); if(error)alert(error.message); load(); audit();}
+});
+async function addItem(){
+  const title=$('ti').value.trim(), desc=$('de').value.trim(), files=[...$('fl').files];
+  if(!title) return note('Please enter a title.','err');
+  if(!files.length) return note('Please choose at least one file.','err');
+  const pdfs=files.filter(f=>/\.pdf$/i.test(f.name)).length; let pn=0; const out=[];
+  $('add').disabled=true;
+  try{
+    for(const f of files){
+      const ext=(f.name.split('.').pop()||'').toLowerCase();
+      if(!['html','pdf'].includes(ext)) throw new Error('Only .html and .pdf files are allowed: '+f.name);
+      if(f.size>50*1048576) throw new Error(f.name+' is over 50 MB.');
+      note('Uploading '+f.name+' …','ok');
+      const path=SEC+'/'+crypto.randomUUID()+'.'+ext;
+      const {error}=await SB.storage.from('content').upload(path,f,{contentType:ext==='html'?'text/html':'application/pdf',upsert:false});
+      if(error) throw new Error(error.message);
+      out.push({path,kind:ext==='html'?'page':'pdf',label:ext==='html'?'Open online':(pdfs>1?'PDF part '+(++pn):'Download PDF')});
+    }
+    const min=ITEMS.length?Math.min(...ITEMS.map(i=>i.sort_order)):0;
+    const {error}=await SB.from('items').insert({section:SEC,title,description:desc,files:out,sort_order:min-1,created_by:ME.id});
+    if(error) throw new Error(error.message);
+    $('ti').value='';$('de').value='';$('fl').value=''; note('Published.','ok'); load(); audit();
+  }catch(err){note(err.message,'err')}
+  $('add').disabled=false;
+}
+async function audit(){
+  const {data}=await SB.from('audit_log').select('at,action,section,item_title').order('at',{ascending:false}).limit(20);
+  $('au').innerHTML=(data&&data.length)?data.map(r=>`<div>${new Date(r.at).toLocaleString()} · ${esc(r.action)} · ${esc(r.section)} · ${esc(r.item_title)}</div>`).join(''):'No activity yet.';
+}
+</script></body></html>
