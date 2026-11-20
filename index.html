@@ -1,38 +1,83 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#09090a"><meta name="robots" content="noindex">
-<title>SSC Restart – Study Hub</title><link rel="icon" href="logo.jpg">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600&display=swap" rel="stylesheet">
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#09090a">
+<title>SSC Restart – Study Hub</title><meta name="description" content="Notes, PYQs, PDFs and videos for SSC CGL, CHSL, CPO and MTS.">
+<link rel="icon" href="logo.jpg"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css"></head><body>
-<div id="hdr"></div>
-<section class="hero">
-  <div class="lg"><img src="logo.jpg" alt="SSC Restart"></div>
-  <div>
-    <span class="eyebrow">CGL · CHSL · CPO · MTS</span>
-    <h1>SSC <em>RE</em>START</h1>
-    <p>Notes, previous-year questions and practice for every SSC aspirant. Pick a subject and start revising.</p>
-    <div class="btns">
-      <a class="btn tg" href="https://t.me/ssc_restart" target="_blank" rel="noopener">Join Telegram</a>
-      <a class="btn yt" href="https://youtube.com/@ssc_restart-l9i?si=bW0FVsU7kJlRl1aN" target="_blank" rel="noopener">Watch on YouTube</a>
-    </div>
-    <div class="steps"><span>Reset</span><span>Plan</span><span>Study</span><span>Practice</span><span>Revise</span><span>Repeat</span></div>
-  </div>
-</section>
-<main>
-  <div class="sh"><h2>CGL 2026 · Chapter-wise</h2><p>Read online or download the PDF for each subject.</p></div>
-  <div class="grid" id="cgl"><div class="empty">Loading…</div></div>
-  <div class="sh"><h2>Subjects</h2><p>Tap a subject to see everything we have for it.</p></div>
-  <div class="grid" id="tiles"></div>
-</main>
-<footer><b>SSC RESTART</b><br>Reset · Plan · Study · Practice · Revise · Repeat</footer>
+<div class="banner" id="bn" hidden></div>
+<header class="top"><div class="top-in"><a class="brand" href="#/"><img src="logo.jpg" alt="SSC Restart logo"><span><b>SSC <i>RE</i>START</b><small>Study Hub</small></span></a><span class="rt"><a class="pill" href="login.html?next=admin.html">Admin</a></span></div></header>
+<div id="m"><div class="wrap" style="padding-top:40px"><div class="grid"><div class="sk"></div><div class="sk"></div><div class="sk"></div></div></div></div>
+<footer><b id="fb">SSC RESTART</b><br>Reset · Plan · Study · Practice · Revise · Repeat</footer>
+<div class="modal" id="md" hidden><div class="vid" id="vd"><button class="x" id="cx">Close ✕</button></div></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script src="config.js"></script><script src="shared.js"></script>
 <script>
+let D=null,X=null;
+const S=k=>(D&&D.settings[k])||({telegram:'https://t.me/ssc_restart',youtube:'https://youtube.com/@ssc_restart-l9i',site_title:'SSC RESTART',tagline:'Notes, previous-year questions and practice for every SSC aspirant.'})[k]||'';
+const safe=u=>/^https:\/\//i.test(u)?u:'#';
+function count(id){let n=(X.res[id]||[]).length;(X.kids[id]||[]).forEach(c=>n+=count(c.id));return n}
+function crumbs(n){const a=[];let c=n;while(c){a.unshift(c);c=c.parent_id?X.byId[c.parent_id]:null}return a}
+function act(r){
+  if(r.kind==='page')return `<a class="act p" href="viewer.html?p=${encodeURIComponent(r.path)}&t=${encodeURIComponent(r.title)}">${esc(r.title)}</a>`;
+  if(r.kind==='pdf')return `<button class="act" data-pdf="${esc(r.path)}" data-name="${esc(r.title)}">⬇ ${esc(r.title)}</button>`;
+  if(r.kind==='video'){const i=ytId(r.url);return i?`<button class="act yt" data-yt="${i}">▶ ${esc(r.title)}</button>`:''}
+  return `<a class="act" href="${esc(safe(r.url))}" target="_blank" rel="noopener noreferrer">↗ ${esc(r.title)}</a>`}
+function tile(n){const c=count(n.id),k=(X.kids[n.id]||[]).length;return `<a class="card" href="#/n/${n.id}"><div class="ic">${icon(n.icon)}</div><h3>${esc(n.title)}</h3><div class="ds">${esc(n.description)}</div><div class="mt">${k?k+(k>1?' items · ':' item · '):''}${c} file${c==1?'':'s'}</div></a>`}
+function rowOf(n){
+  const k=(X.kids[n.id]||[]).length,rs=X.res[n.id]||[];
+  return `<div class="row"><div class="hd"><h3>${esc(n.title)}</h3>${k?`<a class="more" href="#/n/${n.id}">Open ${k} more →</a>`:''}</div>${n.description?`<div class="ds">${esc(n.description)}</div>`:''}${rs.length?`<div class="acts">${rs.map(act).join('')}</div>`:''}</div>`}
+function home(){
+  const secs=X.kids[ROOT]||[];
+  const recent=D.resources.filter(r=>nodeVisible(r.node_id)).sort((a,b)=>b.created_at.localeCompare(a.created_at)).slice(0,6);
+  $('m').innerHTML=`<section class="hero"><div class="lg"><img src="logo.jpg" alt="SSC Restart"></div><div><span class="eyebrow">CGL · CHSL · CPO · MTS</span><h1>${esc(S('site_title')).replace(/^(\S+)\s+RE(\S*)$/i,'$1 <em>RE</em>$2')||esc(S('site_title'))}</h1><p>${esc(S('tagline'))}</p><div class="btns"><a class="btn tg" href="${esc(safe(S('telegram')))}" target="_blank" rel="noopener">Join Telegram</a><a class="btn yt" href="${esc(safe(S('youtube')))}" target="_blank" rel="noopener">Watch on YouTube</a></div></div></section>
+  <main><input class="search" id="q" type="search" placeholder="Search any chapter, topic, PDF or video…" aria-label="Search" autocomplete="off"><div id="hb">
+  <div class="sh"><h2>Subjects</h2><p>Pick a subject to start.</p></div>
+  <div class="grid">${secs.length?secs.map(tile).join(''):'<div class="empty">Content is coming soon.</div>'}</div>
+  ${recent.length?`<div class="sh"><h2>Recently added</h2></div><div class="list">${recent.map(r=>`<div class="row"><div class="hd"><h3>${esc(r.title)}</h3></div><div class="ds">${esc(crumbs(X.byId[r.node_id]).map(x=>x.title).join(' › '))}</div><div class="acts">${act(r)}</div></div>`).join('')}</div>`:''}</div><div id="sr" hidden></div></main>`;
+  $('q').oninput=e=>search(e.target.value.trim());
+}
+function nodeVisible(id){let n=X.byId[id];while(n){if(n.hidden)return false;n=n.parent_id?X.byId[n.parent_id]:null}return !!X.byId[id]}
+function search(t){
+  const hb=$('hb'),sr=$('sr'); if(t.length<2){hb.hidden=false;sr.hidden=true;return}
+  const q=t.toLowerCase(),out=[];
+  D.nodes.forEach(n=>{if(nodeVisible(n.id)&&(n.title+' '+n.description).toLowerCase().includes(q))out.push(`<div class="row"><div class="hd"><h3>${esc(n.title)}</h3><a class="more" href="#/n/${n.id}">Open →</a></div><div class="ds">${esc(crumbs(n).slice(0,-1).map(x=>x.title).join(' › '))}</div></div>`)});
+  D.resources.forEach(r=>{if(nodeVisible(r.node_id)&&r.title.toLowerCase().includes(q))out.push(`<div class="row"><div class="hd"><h3>${esc(r.title)}</h3></div><div class="ds">${esc(crumbs(X.byId[r.node_id]).map(x=>x.title).join(' › '))}</div><div class="acts">${act(r)}</div></div>`)});
+  hb.hidden=true;sr.hidden=false;sr.innerHTML=out.length?`<div class="sh"><h2>${out.length} result${out.length>1?'s':''}</h2></div><div class="list">${out.slice(0,60).join('')}</div>`:'<div class="empty" style="margin-top:20px">Nothing found. Try another word.</div>';
+}
+function page(id){
+  const n=X.byId[id]; if(!n||!nodeVisible(id)){$('m').innerHTML='<main><div class="empty" style="margin-top:40px">This page was not found. <a class="more" href="#/">Go home</a></div></main>';return}
+  const kids=X.kids[id]||[],rs=X.res[id]||[],cr=crumbs(n);
+  const grid=kids.length&&kids.some(k=>(X.kids[k.id]||[]).length)&&cr.length===1;
+  document.title=n.title+' · SSC Restart';
+  $('m').innerHTML=`<main><nav class="crumb"><a href="#/">Home</a>${cr.map((c,i)=>i<cr.length-1?` › <a href="#/n/${c.id}">${esc(c.title)}</a>`:` › <span>${esc(c.title)}</span>`).join('')}</nav>
+  <div class="ttl"><h1>${esc(n.title)}</h1>${n.description?`<p>${esc(n.description)}</p>`:''}</div>
+  ${rs.length?`<div class="sh"><h2>Files & videos</h2></div><div class="row"><div class="acts" style="margin-top:0">${rs.map(act).join('')}</div></div>`:''}
+  ${kids.length?`<div class="sh"><h2>${cr.length===1?'Chapters':cr.length===2?'Topics':'Sub-topics'}</h2></div>${grid?`<div class="grid">${kids.map(tile).join('')}</div>`:`<div class="list">${kids.map(rowOf).join('')}</div>`}`:''}
+  ${!kids.length&&!rs.length?'<div class="empty" style="margin-top:24px">Coming soon. Join Telegram for updates.</div>':''}</main>`;
+}
+function route(){
+  if(!D)return; window.scrollTo(0,0); document.title='SSC Restart – Study Hub';
+  const m=location.hash.match(/^#\/n\/([\w-]+)/); m?page(m[1]):home();
+}
+function paint(){
+  X=buildIndex(D); const b=S('banner'); $('bn').hidden=!b; $('bn').textContent=b||''; $('fb').textContent=S('site_title'); route();
+}
+function openVid(id){
+  if(!/^[\w-]{11}$/.test(id))return;
+  const old=$('vd').querySelector('iframe'); if(old)old.remove();
+  const f=document.createElement('iframe'); f.src='https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0'; f.allow='autoplay; encrypted-media; picture-in-picture; fullscreen'; f.allowFullscreen=true; f.title='Video';
+  $('vd').appendChild(f); $('md').hidden=false;
+}
+function closeVid(){$('md').hidden=true;const f=$('vd').querySelector('iframe');if(f)f.remove()}
+document.addEventListener('click',e=>{const y=e.target.closest('[data-yt]');if(y)openVid(y.dataset.yt);if(e.target===$('md')||e.target===$('cx'))closeVid()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeVid()});
+window.addEventListener('hashchange',route);
 (async()=>{
-  const s=await requireLogin(); if(!s)return;
-  renderHeader(await myRole(s.user.id));
-  $('tiles').innerHTML=SECTIONS.map(x=>`<a class="card tile" href="subject.html?s=${x.id}"><div class="ic"><svg viewBox="0 0 24 24">${x.ic}</svg></div><h3>${x.name}</h3><div class="hi">${x.hi}</div><div class="ds">${x.ds}</div><div class="acts"><span class="act p">Open</span></div></a>`).join('');
-  const {data,error}=await SB.from('items').select('*').eq('section','cgl2026').order('sort_order');
-  $('cgl').innerHTML=error?'<div class="empty">Could not load. Please refresh.</div>':(data.length?data.map(card).join(''):'<div class="empty">Nothing here yet. New material is added often.</div>');
+  try{const c=JSON.parse(localStorage.getItem('ssc2')||'null');if(c&&c.nodes){D=c;paint()}}catch(e){}
+  const d=await loadAll();
+  if(d.error&&!D){$('m').innerHTML='<main><div class="empty" style="margin-top:40px">Could not load content. Please refresh.</div></main>';return}
+  if(!d.error){const same=D&&JSON.stringify(D.nodes)+JSON.stringify(D.resources)+JSON.stringify(D.settings)===JSON.stringify(d.nodes)+JSON.stringify(d.resources)+JSON.stringify(d.settings);
+    D=d;try{localStorage.setItem('ssc2',JSON.stringify({nodes:d.nodes,resources:d.resources,settings:d.settings}))}catch(e){}
+    if(!same)paint()}
 })();
 </script></body></html>
